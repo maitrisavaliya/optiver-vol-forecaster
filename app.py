@@ -315,13 +315,15 @@ if page == "Market Overview":
         vol_labels = ["60s", "120s", "300s", "600s"]
         vol_vals   = [feat_vals[FEATURE_COLS.index(v)] for v in vol_names]
         fig_vol = go.Figure()
+        hex_color = REGIME_HEX[regime]
+        rgba_color = f"rgba({int(hex_color[1:3], 16)}, {int(hex_color[3:5], 16)}, {int(hex_color[5:7], 16)}, 0.2)"
         fig_vol.add_trace(go.Scatter(
             x=vol_labels, y=vol_vals,
             mode="lines+markers",
             line=dict(color=REGIME_HEX[regime], width=2.5),
             marker=dict(size=8),
             fill="tozeroy",
-            fillcolor=REGIME_HEX[regime] + "33",
+            fillcolor=rgba_color,
             name="Realized Vol Build-up",
         ))
         fig_vol.add_hline(
@@ -765,6 +767,6 @@ elif page == "Model Benchmarking":
 | Patience | 10 epochs (best checkpoint always saved) |
 | Validation split | Purged time-based, last 20% of time_ids |
 | Graph edges | Top-20 Spearman-correlated neighbours per stock |
-| Training device | GPU P100 (Kaggle) |
+| Training device | GPU T4 (Kaggle) |
 | Inference device | CPU (Streamlit Cloud) |
         """)
