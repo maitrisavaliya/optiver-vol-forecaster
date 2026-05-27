@@ -475,13 +475,15 @@ elif page == "Regime Deep-Dive":
         fig_radar = go.Figure()
         for r in range(3):
             vals = list(hmm_means[r]) + [hmm_means[r][0]]
+            hex_color = REGIME_HEX[r]
+            rgba_color = f"rgba({int(hex_color[1:3], 16)}, {int(hex_color[3:5], 16)}, {int(hex_color[5:7], 16)}, 0.27)"
             fig_radar.add_trace(go.Scatterpolar(
                 r=vals,
                 theta=radar_features,
                 fill="toself",
                 name=f"R{r} {REGIME_NAMES[r]}",
                 line_color=REGIME_HEX[r],
-                fillcolor=REGIME_HEX[r] + "44",
+                fillcolor=rgba_color,
             ))
         fig_radar.update_layout(
             template="plotly_white",
@@ -718,23 +720,6 @@ elif page == "Model Benchmarking":
         st.plotly_chart(fig_hist, use_container_width=True)
 
     st.divider()
-
-    # ── Architecture summary card ──────────────────────────────
-    st.info(
-        "**Model: RegimeGAT — Regime-Conditioned Graph Attention Volatility Forecaster**\n\n"
-        "Each 10-minute order-book window is summarised into 17 features (WAP-derived realized "
-        "volatility across sub-windows, bid-ask spread, order imbalance, depth ratio, and trade "
-        "statistics). A 3-state Gaussian HMM classifies each window into a market regime "
-        "(Trending / Mean-Reverting / Stressed) based on 4 market microstructure signals.\n\n"
-        "A Graph Attention Network (GATConv, 4 heads) encodes cross-asset correlations "
-        "across all 112 stocks using a Spearman correlation graph (top-20 edges per node). "
-        "Each regime has a dedicated MLP head [256→128→64→32→1] that produces the final "
-        "realized-volatility forecast. Models are trained end-to-end with RMSPE loss, "
-        "AdamW optimiser, and a purged time-based validation split.\n\n"
-        "📂 Dataset: [Optiver Realized Volatility Prediction](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction) "
-        "— 112 Nasdaq stocks, ~3.8M order-book rows, 600-second windows.\n\n"
-        "💻 Code: GitHub link placeholder — add your repo URL here."
-    )
 
     with st.expander("Technical details"):
         # Compute real param counts
