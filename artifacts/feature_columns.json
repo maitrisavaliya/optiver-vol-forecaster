@@ -1,0 +1,27 @@
+{
+  "feature_cols": [
+    "realized_vol_600",
+    "vol_60s",
+    "vol_120s",
+    "vol_300s",
+    "mean_spread",
+    "std_spread",
+    "mean_imbalance",
+    "std_imbalance",
+    "mean_depth_ratio",
+    "std_depth_ratio",
+    "wap_mean",
+    "wap_std",
+    "wap_range",
+    "trade_vol_per_sec",
+    "trade_order_count",
+    "trade_price_std",
+    "trade_size_sum"
+  ],
+  "hmm_features": [
+    "mean_imbalance",
+    "std_imbalance",
+    "mean_spread",
+    "realized_vol_600"
+  ]
+}
