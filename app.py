@@ -204,7 +204,7 @@ with st.sidebar:
         index=0,
     )
     st.divider()
-    st.caption("Artifacts from: [Kaggle competition](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction)")
+    st.caption("Dataset Used From: [Kaggle competition](https://www.kaggle.com/competitions/optiver-realized-volatility-prediction)")
 
 
 # ═══════════════════════════════════════════════════════════════
